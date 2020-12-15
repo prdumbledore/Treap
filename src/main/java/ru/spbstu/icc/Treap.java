@@ -33,12 +33,10 @@ public class Treap<T extends Comparable<T>> extends AbstractSet<T> implements So
         int comparison = key.compareTo(start.key);
         if (comparison == 0) {
             return start;
-        }
-        else if (comparison < 0) {
+        } else if (comparison < 0) {
             if (start.left == null) return start;
             return find(start.left, key);
-         }
-        else {
+        } else {
             if (start.right == null) return start;
             return find(start.right, key);
         }
@@ -64,7 +62,7 @@ public class Treap<T extends Comparable<T>> extends AbstractSet<T> implements So
             first.right = merge(first.right, second);
             first.right.parent = first;
             return first;
-        } else  {
+        } else {
             second.left = merge(first, second.left);
             second.left.parent = second;
             return second;
@@ -88,7 +86,7 @@ public class Treap<T extends Comparable<T>> extends AbstractSet<T> implements So
 
             if (start.left != null) start.left.parent = start;
             if (result.getFirst() != null) result.getFirst().parent = null;
-            return new Pair<>(result.getFirst(), start );
+            return new Pair<>(result.getFirst(), start);
 
         }
     }
@@ -156,24 +154,24 @@ public class Treap<T extends Comparable<T>> extends AbstractSet<T> implements So
 
         if (fromElement == toElement && toElement == null)
             throw new IllegalArgumentException();
-        if (toElement != null && fromElement.compareTo(toElement) >=0)
+        if (toElement != null && fromElement.compareTo(toElement) >= 0)
             throw new IllegalArgumentException();
 
-        return new SubTreap<>(fromElement, toElement, this);
+        return new TreapSet<>(fromElement, toElement, this);
     }
 
     @NotNull
     @Override
     public SortedSet<T> headSet(T toElement) {
         if (toElement == null) throw new IllegalArgumentException();
-        return new SubTreap<>(null, toElement, this);
+        return new TreapSet<>(null, toElement, this);
     }
 
     @NotNull
     @Override
     public SortedSet<T> tailSet(T fromElement) {
         if (fromElement == null) throw new IllegalArgumentException();
-        return new SubTreap<>(fromElement, null, this);
+        return new TreapSet<>(fromElement, null, this);
     }
 
     @Override
@@ -200,16 +198,19 @@ public class Treap<T extends Comparable<T>> extends AbstractSet<T> implements So
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        for (Object o: c)
+        for (Object o : c)
             if (!contains(o)) return false;
         return true;
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
-        for (T t: c)
-            if (!add(t)) return false;
+    public boolean addAll(@NotNull Collection<? extends T> c) {
+        for (T t : c)
+            if (contains(t))  return false;
+        for (T t : c)
+            add(t);
         return true;
+
     }
 
     @Override
@@ -225,7 +226,7 @@ public class Treap<T extends Comparable<T>> extends AbstractSet<T> implements So
     @Override
     public boolean removeAll(@NotNull Collection<?> c) {
         if (this.containsAll(c)) {
-            for (Object t: this) remove(t);
+            for (Object t : this) remove(t);
             return true;
         } else return false;
     }

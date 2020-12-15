@@ -6,13 +6,13 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-public class SubTreap<T extends Comparable<T>> extends Treap<T> {
+public class TreapSet<T extends Comparable<T>> extends Treap<T> {
 
     final T first;
     final T last;
     Treap<T> treap;
 
-    SubTreap(T first, T last, Treap<T> treap) {
+    TreapSet(T first, T last, Treap<T> treap) {
         this.first = first;
         this.last = last;
         this.treap = treap;

@@ -25,6 +25,15 @@ public class TreapTest {
         assertEquals(treap1.size(), 8);
 
         assertFalse(treap1.isEmpty());
+
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        arrayList.add(190);
+        arrayList.add(4);
+        arrayList.add(167);
+
+        assertFalse(treap1.addAll(arrayList));
+        assertFalse(treap1.contains(190));
+        assertFalse(treap1.contains(167));
     }
 
     @Test
