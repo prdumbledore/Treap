@@ -205,11 +205,10 @@ public class Treap<T extends Comparable<T>> extends AbstractSet<T> implements So
 
     @Override
     public boolean addAll(@NotNull Collection<? extends T> c) {
-        for (T t : c)
-            if (contains(t))  return false;
+        int s = size;
         for (T t : c)
             add(t);
-        return true;
+        return s != size;
 
     }
 

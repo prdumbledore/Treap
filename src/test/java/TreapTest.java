@@ -31,9 +31,12 @@ public class TreapTest {
         arrayList.add(4);
         arrayList.add(167);
 
+        assertTrue(treap1.addAll(arrayList));
+        assertTrue(treap1.contains(190));
+        assertTrue(treap1.contains(167));
+
+        arrayList.add(19);
         assertFalse(treap1.addAll(arrayList));
-        assertFalse(treap1.contains(190));
-        assertFalse(treap1.contains(167));
     }
 
     @Test
